@@ -2,12 +2,12 @@ from sqlalchemy import (
     Column,
     DateTime,
     Float,
-    ForeignKey,
+    # ForeignKey,
     Integer,
     Unicode,
 )
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import relationship
+# from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
 # create an instance of the declarative base class, to be used across all models
@@ -26,8 +26,8 @@ class Detection(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
 
     # attributes
-    time_created = Column(DateTime, server_default=func.now())
-    time_updated = Column(DateTime, onupdate=func.now())
+    created = Column(DateTime, server_default=func.now())
+    updated = Column(DateTime, onupdate=func.now())
     category = Column(Unicode(255))
     probability = Column(Float)
     start_x = Column(Integer)
@@ -35,10 +35,11 @@ class Detection(Base):
     end_x = Column(Integer)
     end_y = Column(Integer)
 
-    # many-to-one relationship
-    detection_image_id = Column(Integer, ForeignKey("detection_images.id"))
-    detection_image = relationship("DetectionImage",
-                                   foreign_keys=[detection_image_id])
+    # # many-to-one relationship (i.e. we may have
+    # # multiple detections per video frame image)
+    # detection_image_id = Column(Integer, ForeignKey("detection_images.id"))
+    # detection_image = relationship("DetectionImage",
+    #                                foreign_keys=[detection_image_id])
 
     # simple representation
     def __repr__(self):

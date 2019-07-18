@@ -85,7 +85,7 @@ class AbstractBaseDao:
         :return:
         """
 
-        item = self.session.query(self.model_class).get(object_id)
+        item = self.session.query(self.model_class).filter(self.model_class.id == object_id)
         item.update(attribute_values, synchronize_session="fetch")
         self.session.commit()
 
@@ -97,8 +97,8 @@ class AbstractBaseDao:
         :return:
         """
 
-        item = self.session.query(self.model_class).get(object_id)
-        item.delete()
+        item = self.session.query(self.model_class).filter(self.model_class.id == object_id)
+        item.delete(synchronize_session="fetch")
         self.session.commit()
 
     def find(self, object_id):
