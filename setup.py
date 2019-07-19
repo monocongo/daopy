@@ -11,7 +11,7 @@ setup(
     name="daopy",
     version="0.0.1",
     url="https://github.com/monocongo/daopy",
-    license="GPL-3",
+    license="MIT",
     author="James Adams",
     author_email="monocongo@gmail.com",
     description=(
